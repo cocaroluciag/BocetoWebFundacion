@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fundación Amigos de las Ciencias Agrarias</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+
+    /* ===========================
+       RESET & BASE
+    =========================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Lato', sans-serif;
+      font-size: 16px;
+      color: #3A3A2A;
+      background: #FFFFFF;
+      line-height: 1.7;
+    }
+    h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 700; line-height: 1.25; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ===========================
+       TOKENS
+    =========================== */
+    :root {
+      --verde-oscuro:   #2C4A1E;
+      --verde-campo:    #5C8A3C;
+      --verde-claro:    #B5CFA8;
+      --cobre:          #B87333;
+      --crema:          #F5F0E8;
+      --crema-borde:    #C8C0A8;
+      --crema-num:      #E8DDD0;
+      --texto-oscuro:   #3A3A2A;
+      --texto-medio:    #6B5A3A;
+      --texto-suave:    #9A8A70;
+      --negro:          #1A1A1A;
+      --blanco:         #FFFFFF;
+    }
+
+    /* ===========================
+       UTILIDADES
+    =========================== */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+    .sec-tag {
+      font-size: 12px; font-weight: 700; color: var(--cobre);
+      letter-spacing: 0.12em; text-transform: uppercase; display: block; margin-bottom: 8px;
+    }
+    .sec-line { width: 36px; height: 2px; background: var(--cobre); margin: 10px 0 0; }
+    .sec-line.centered { margin: 10px auto 0; }
+    .sec-title-wrap { text-align: center; margin-bottom: 40px; }
+    .sec-title-wrap .sec-line { margin: 10px auto 0; }
+    .btn-primary {
+      display: inline-block; font-family: 'Lato', sans-serif;
+      font-size: 13px; font-weight: 700; color: var(--crema);
+      background: var(--cobre); padding: 11px 24px; border-radius: 4px;
+      border: none; cursor: pointer; letter-spacing: 0.04em; transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.88; }
+    .btn-secondary {
+      display: inline-block; font-family: 'Lato', sans-serif;
+      font-size: 13px; font-weight: 700; color: var(--crema);
+      background: transparent; padding: 11px 24px; border-radius: 4px;
+      border: 1.5px solid rgba(245,240,232,0.4); cursor: pointer; transition: border-color 0.2s;
+    }
+    .btn-secondary:hover { border-color: rgba(245,240,232,0.8); }
+
+    /* ===========================
+       NAVBAR
+    =========================== */
+    .navbar {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--blanco); border-bottom: 1px solid var(--crema-borde);
+      padding: 0 32px; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 12px; }
+    .nav-logo-icon {
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-logo-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: none;
+}
+    .nav-logo-text { font-family: 'Playfair Display', serif; font-size: 14px; color: var(--verde-oscuro); font-weight: 600; line-height: 1.25; }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+    .nav-links a { font-size: 13px; color: var(--texto-oscuro); transition: color 0.2s; }
+    .nav-links a:hover { color: var(--verde-oscuro); }
+    .nav-links a.active { color: var(--verde-oscuro); font-weight: 700; border-bottom: 2px solid var(--cobre); padding-bottom: 2px; }
+    .nav-cta {
+      font-size: 12px; font-weight: 700; color: var(--crema);
+      background: var(--verde-oscuro); padding: 8px 18px; border-radius: 4px;
+      letter-spacing: 0.04em; transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* ===========================
+       HERO
+    =========================== */
+    .hero {
+      background: var(--verde-oscuro);
+      padding: 80px 32px 72px;
+    }
+    .hero .container { display: flex; align-items: center; gap: 60px; }
+    .hero-text { flex: 1; }
+    .hero-eyebrow {
+      font-size: 12px; font-weight: 700; color: var(--verde-claro);
+      letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 16px; display: block;
+    }
+    .hero-title { font-size: 42px; color: var(--crema); margin-bottom: 18px; max-width: 540px; }
+    .hero-sub { font-size: 15px; color: rgba(245,240,232,0.75); line-height: 1.75; margin-bottom: 28px; max-width: 480px; }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-image {
+      width: 560px; flex-shrink: 0;
+       border-radius: 10px; overflow: hidden; }
+      /*border-radius: 10px; overflow: hidden;
+      /*background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      aspect-ratio: 4/3;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+   
+    /* Reemplazá este div por <img src="foto-acto.jpg" alt="Acto constitutivo"> */
+    /*.hero-image-placeholder { color: rgba(245,240,232,0.3); font-size: 13px; text-align: center; padding: 24px; }
+
+    /* ===========================
+       STATS
+    =========================== */
+    .stats {
+      background: var(--crema);
+      border-bottom: 1px solid var(--crema-borde);
+    }
+    .stats .container {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+    }
+    .stat {
+      text-align: center; padding: 32px 24px;
+    }
+    .stat + .stat { border-left: 1px solid var(--crema-borde); }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 44px; color: var(--verde-oscuro); font-weight: 700; line-height: 1; margin-bottom: 6px; }
+    .stat-label { font-size: 13px; color: var(--texto-medio); }
+
+    /* ===========================
+       SOBRE NOSOTROS
+    =========================== */
+    .about { background: var(--blanco); padding: 80px 32px; }
+    .about .container { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .about-img {
+      border-radius: 10px; overflow: hidden;
+      background: var(--crema); border: 1px solid var(--crema-borde);
+      aspect-ratio: 4/3;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    /* Reemplazá este div por <img src="foto-nosotros.jpg" alt="Sobre nosotros"> */
+    .about-img-placeholder { color: var(--texto-suave); font-size: 13px; text-align: center; padding: 24px; }
+    .about-text .sec-line { margin-bottom: 14px; }
+    .about-text h2 { font-size: 30px; color: var(--verde-oscuro); margin-bottom: 16px; }
+    .about-text p { font-size: 14px; color: var(--texto-oscuro); line-height: 1.8; margin-bottom: 14px; }
+    .about-text .btn-primary { margin-top: 8px; background: var(--verde-oscuro); }
+    .about-text .btn-primary:hover { opacity: 0.85; }
+
+    /* ===========================
+       OBJETIVOS
+    =========================== */
+    .objetivos { background: var(--crema); padding: 80px 32px; }
+    .obj-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .obj-card {
+      background: var(--blanco); border-radius: 8px; padding: 24px;
+      border: 1px solid var(--crema-borde); transition: border-color 0.2s;
+    }
+    .obj-card:hover { border-color: var(--verde-campo); }
+    .obj-num { font-family: 'Playfair Display', serif; font-size: 36px; color: var(--cobre); font-weight: 700; line-height: 1; margin-bottom: 8px; }
+    .obj-title { font-size: 15px; font-weight: 700; color: var(--verde-oscuro); margin-bottom: 6px; line-height: 1.3; }
+    .obj-body { font-size: 13px; color: var(--texto-medio); line-height: 1.6; }
+
+    /* ===========================
+       EVENTOS
+    =========================== */
+    .eventos { background: var(--blanco); padding: 80px 32px; }
+    .eventos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 0; }
+    .event-card { border-radius: 10px; overflow: hidden; border: 1px solid var(--crema-borde); }
+    .event-img {
+      height: 160px; display: flex; align-items: center; justify-content: center;
+    }
+    /* ======================================================
+   IMAGENES DE EVENTOS
+   Reemplazar cada placeholder por:
+   <img src="imagenes/evento-1.jpg" alt="Evento">
+====================================================== */
+    .event-img-placeholder { color: rgba(245,240,232,0.4); font-size: 13px; text-align: center; padding: 16px; }
+    .event-body { padding: 20px; background: var(--blanco); }
+    .event-date { font-size: 11px; font-weight: 700; color: var(--blanco); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; display: block; }
+    .event-title { font-family: 'Playfair Display', serif; font-size: 17px; color: var(--verde-oscuro); font-weight: 600; margin-bottom: 8px; line-height: 1.3; }
+    .event-desc { font-size: 13px; color: var(--texto-medio); line-height: 1.6; }
+
+    /* ===========================
+       FUNDADORES
+    =========================== */
+    .fundadores { background: var(--verde-oscuro); padding: 80px 32px; }
+    .fundadores .sec-tag { color: var(--verde-claro); }
+    .fundadores h2 { color: var(--crema); }
+    .fundadores .sec-line { background: var(--cobre); }
+    .fundadores-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 40px;
+    }
+    .founder-chip {
+      background: rgba(255,255,255,0.07); border-radius: 6px; padding: 10px 14px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .founder-name { font-size: 13px; color: var(--crema); line-height: 1.4; }
+
+    /* ===========================
+       CONTACTO
+    =========================== */
+    .contacto { background: var(--crema); padding: 80px 32px; }
+    .contacto .container { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .contact-info h2 { font-size: 28px; color: var(--verde-oscuro); margin-bottom: 14px; }
+    .contact-info p { font-size: 14px; color: var(--texto-oscuro); line-height: 1.8; margin-bottom: 28px; }
+    .contact-item { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 20px; }
+    .contact-icon {
+      width: 36px; height: 36px; border-radius: 6px; background: var(--verde-oscuro);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .contact-icon svg { width: 18px; height: 18px; stroke: var(--verde-claro); fill: none; stroke-width: 1.5; }
+    .contact-label { font-size: 11px; font-weight: 700; color: var(--cobre); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 2px; display: block; }
+    .contact-val { font-size: 13px; color: var(--texto-oscuro); }
+    .contact-form {
+      background: var(--blanco); border-radius: 10px; padding: 28px;
+      border: 1px solid var(--crema-borde);
+    }
+    .contact-form h3 { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--verde-oscuro); font-weight: 600; margin-bottom: 20px; }
+    .form-field { margin-bottom: 14px; }
+    .form-label { font-size: 12px; font-weight: 700; color: var(--texto-medio); display: block; margin-bottom: 5px; }
+    .form-input, .form-textarea, .form-select {
+      width: 100%; font-family: 'Lato', sans-serif; font-size: 13px; color: var(--texto-oscuro);
+      background: var(--crema); border: 1px solid var(--crema-borde); border-radius: 4px;
+      padding: 10px 12px; transition: border-color 0.2s; outline: none;
+    }
+    .form-input:focus, .form-textarea:focus { border-color: var(--verde-campo); }
+    .form-textarea { height: 96px; resize: vertical; }
+    .form-btn {
+      width: 100%; font-family: 'Lato', sans-serif; font-size: 13px; font-weight: 700;
+      color: var(--crema); background: var(--verde-oscuro); border: none; border-radius: 4px;
+      padding: 12px; cursor: pointer; letter-spacing: 0.04em; margin-top: 4px; transition: opacity 0.2s;
+    }
+    .form-btn:hover { opacity: 0.85; }
+
+    /* ===========================
+       FOOTER
+    =========================== */
+    .footer { background: var(--negro); padding: 56px 32px 0; }
+    .footer .container { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; padding-bottom: 40px; }
+    .footer-logo { display: flex; align-items: center;   text-align: center; gap: 10px; margin-bottom: 14px; }
+    .footer-logo-icon {
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 50%;
+ 
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-logo-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: none;
+ border-radius: 50%;
+  
+}
+    .footer-logo-text { font-family: 'Playfair Display', serif; font-size: 13px; color: var(--crema); font-weight: 600; line-height: 1.3; text-align: center; }
+    .footer-desc { font-size: 13px; color: rgba(245,240,232,0.45); line-height: 1.7;   text-align: center; }
+    .footer-col-title { font-size: 11px; font-weight: 700; color: var(--cobre);   text-align: center; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 14px; display: block; }
+    .footer-link { font-size: 13px; color: rgba(245,240,232,0.55); display: block; margin-bottom: 8px; transition: color 0.2s; }
+    .footer-link:hover { color: var(--crema); }
+    .footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding: 16px 32px;
+  text-align: center;
+}
+
+.footer-copy {
+  font-size: 11px;
+  color: rgba(245,240,232,0.25);
+  text-align: center;
+  width: 100%;
+}
+    .footer-acc { font-size: 11px; color: var(--cobre); }
+
+    /* ===========================
+       RESPONSIVE
+    =========================== */
+    @media (max-width: 900px) {
+      .hero .container { flex-direction: column; }
+      .hero-image { width: 100%; }
+      .about .container { grid-template-columns: 1fr; }
+      .obj-grid { grid-template-columns: repeat(2, 1fr); }
+      .eventos-grid { grid-template-columns: 1fr; }
+      .fundadores-grid { grid-template-columns: repeat(2, 1fr); }
+      .contacto .container { grid-template-columns: 1fr; }
+      .footer .container { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 600px) {
+      .obj-grid { grid-template-columns: 1fr; }
+      .stats .container { grid-template-columns: 1fr; }
+      .stat + .stat { border-left: none; border-top: 1px solid var(--crema-borde); }
+      .fundadores-grid { grid-template-columns: 1fr 1fr; }
+      .hero-title { font-size: 30px; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+   <header class="navbar">
+
+  <div class="nav-logo">
+
+    <div class="nav-logo-icon">
+
+      <!-- =====================================
+           LOGOTIPO DE LA FUNDACIÓN
+           CAMBIAR RUTA AQUÍ
+      ====================================== -->
+
+      <img src="IMG/logotipo.jpg" alt="Logo Fundación">
+
+    </div>
+
+    <div class="nav-logo-text">
+      Fundación Amigos de las<br>
+      Ciencias Agrarias
+    </div>
+
+  </div>
+
+  <nav class="nav-links">
+    <a href="#inicio" class="active">Inicio</a>
+    <a href="#nosotros">Sobre nosotros</a>
+    <a href="#objetivos">Objetivos</a>
+    <a href="#eventos">Eventos</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+
+  <a href="#contacto" class="nav-cta">Colaborar</a>
+
+</header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="inicio">
+    <div class="container">
+      <div class="hero-text">
+        <span class="hero-eyebrow">Santa Rosa · La Pampa · Desde 2025</span>
+        <h1 class="hero-title">Apoyamos el futuro de las Ciencias Agrarias en La Pampa</h1>
+        <p class="hero-sub">Somos una fundación sin fines de lucro que acompaña el crecimiento de la Facultad de Agronomía de la UNLPam, reuniendo el apoyo de personas e instituciones que creen en la educación pública.</p>
+        <div class="hero-btns">
+          <a href="#nosotros" class="btn-primary">Conocé nuestra misión</a>
+          <a href="#contacto" class="btn-secondary">Cómo colaborar</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <!-- ======================================================
+     FOTO DE PORTADA / HERO
+====================================================== -->
+        <img src="IMG/IMG1.jpg" alt="Portada1">
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STATS ===== -->
+  <div class="stats">
+    <div class="container">
+      <div class="stat">
+        <p class="stat-num">21</p>
+        <p class="stat-label">Fundadores</p>
+      </div>
+      <div class="stat">
+        <p class="stat-num">9</p>
+        <p class="stat-label">Compromisos institucionales</p>
+      </div>
+      <div class="stat">
+        <p class="stat-num">99</p>
+        <p class="stat-label">Años de compromiso</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SOBRE NOSOTROS ===== -->
+  <section class="about" id="nosotros">
+    <div class="container">
+      <div class="about-img">
+        <!-- ======================================================
+     FOTO SECCION SOBRE NOSOTROS
+     CAMBIAR RUTA AQUI
+====================================================== -->
+         <img src="IMG/IMG2.jpg" alt="Portada2">
+      </div>
+      <div class="about-text">
+        <span class="sec-tag">Sobre nosotros</span>
+        <div class="sec-line"></div>
+        <h2 style="margin-top:14px;">Una convicción compartida por 21 profesionales</h2>
+        <p>El 25 de noviembre de 2025, en Santa Rosa, un grupo de egresados, docentes, investigadores y profesionales de las Ciencias Agrarias dimos un paso histórico: constituir la Fundación Amigos de las Ciencias Agrarias.</p>
+        <p>Nacimos con un propósito claro: propender al crecimiento y desarrollo de la Facultad de Agronomía de la UNLPam y a la excelencia de sus egresados, con un compromiso de 99 años.</p>
+        <a href="#fundadores" class="btn-primary">Conocer a los fundadores</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== OBJETIVOS ===== -->
+  <section class="objetivos" id="objetivos">
+    <div class="container">
+      <div class="sec-title-wrap">
+        <span class="sec-tag">Nuestros compromisos</span>
+        <h2 style="font-size:32px; color:var(--verde-oscuro);">9 objetivos que guían nuestro trabajo</h2>
+        <div class="sec-line centered"></div>
+      </div>
+      <div class="obj-grid">
+        <div class="obj-card">
+          <p class="obj-num">01</p>
+          <p class="obj-title">Apoyo económico</p>
+          <p class="obj-body">Sostener la misión y visión de la Facultad de Agronomía de la UNLPam, contribuyendo a su crecimiento y desarrollo institucional.</p>
+        </div>
+        <div class="obj-card">
+          <p class="obj-num">02</p>
+          <p class="obj-title">Gestión de fondos</p>
+          <p class="obj-body">Canalizar fondos nacionales e internacionales hacia proyectos que fortalezcan la enseñanza, la investigación y la extensión universitaria.</p>
+        </div>
+        <div class="obj-card">
+          <p class="obj-num">03</p>
+          <p class="obj-title">Difusión del conocimiento</p>
+          <p class="obj-body">Promover la difusión de las Ciencias Agrarias a través de publicaciones, seminarios, congresos y cursos de capacitación.</p>
+        </div>
+        <div class="obj-card">
+          <p class="obj-num">04</p>
+          <p class="obj-title">Becas estudiantiles</p>
+          <p class="obj-body">Otorgar becas y apoyos económicos a estudiantes de grado y posgrado por mérito académico o necesidad económica.</p>
+        </div>
+        <div class="obj-card">
+          <p class="obj-num">05</p>
+          <p class="obj-title">Mejora de condiciones</p>
+          <p class="obj-body">Mejorar las condiciones de estudio, trabajo e investigación de docentes, alumnos y personal no docente de la Facultad.</p>
+        </div>
+        <div class="obj-card">
+          <p class="obj-num">06</p>
+          <p class="obj-title">Vinculación social</p>
+          <p class="obj-body">Fortalecer el vínculo con egresados, organizaciones y la comunidad pampeana que creen en el valor de la educación agraria.</p>
+        </div>
+        <div class="obj-card">
+          <p class="obj-num">07</p>
+          <p class="obj-title">Ética y sostenibilidad</p>
+          <p class="obj-body">Promover la ética profesional, la sostenibilidad ambiental y el respeto por las tradiciones de las Ciencias Agrarias.</p>
+        </div>
+        <div class="obj-card">
+          <p class="obj-num">08</p>
+          <p class="obj-title">Reconocimientos</p>
+          <p class="obj-body">Distinguir a personas e instituciones que hayan contribuido al desarrollo de las Ciencias Agrarias en la región.</p>
+        </div>
+        <div class="obj-card">
+          <p class="obj-num">09</p>
+          <p class="obj-title">Patrimonio cultural</p>
+          <p class="obj-body">Preservar el patrimonio histórico y cultural de la Facultad de Agronomía como legado para las generaciones futuras.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ===== EVENTOS ===== -->
+  <section class="eventos" id="eventos">
+    <div class="container">
+      <div class="sec-title-wrap">
+        <span class="sec-tag">Actividades recientes</span>
+        <h2 style="font-size:32px; color:var(--verde-oscuro);">Ya estamos en acción</h2>
+        <div class="sec-line centered"></div>
+      </div>
+      <div class="eventos-grid">
+        <div class="event-card">
+          <div class="event-img" style="background:var(--verde-oscuro);">
+            <!-- Reemplazá por: <img src="evento-1.jpg" alt="Acto constitutivo"> -->
+            <img src="IMG/IMG3.jpg" alt="Portada3">
+          </div>
+          <div class="event-body">
+            <span class="event-date">Noviembre 2025</span>
+            <h3 class="event-title">Acto constitutivo de la Fundación</h3>
+            <p class="event-desc">21 fundadores firmaron el acta de constitución en Santa Rosa, dando inicio formal a la Fundación Amigos de las Ciencias Agrarias.</p>
+          </div>
+        </div>
+        <div class="event-card">
+          <div class="event-img" style="background:var(--verde-campo);">
+            <!-- Reemplazá por: <img src="evento-2.jpg" alt="Despedida docentes"> -->
+             <img src="IMG/IMG4.jpg" alt="Portada4">
+          </div>
+          <div class="event-body">
+            <span class="event-date">Mayo 2026</span>
+            <h3 class="event-title">Despedida a docentes jubilados</h3>
+            <p class="event-desc">Acompañamos el emotivo homenaje a docentes y no docentes que se jubilaron de la Facultad de Agronomía, y a la gestión que finalizó su período.</p>
+          </div>
+        </div>
+        <div class="event-card">
+          <div class="event-img" style="background:var(--cobre);">
+            <!-- Reemplazá por: <img src="evento-3.jpg" alt="Tertulia mayo 2026"> -->
+            <img src="IMG/IMG5.jpg" alt="Portada5">
+          </div>
+          <div class="event-body">
+            <span class="event-date">5 de Mayo 2026</span>
+            <h3 class="event-title">Tertulia en Agrícola Ganadera</h3>
+            <p class="event-desc">Más de 40 colegas se reunieron para conocer el avance en la formalización de la Fundación. Se entregaron pergaminos a autoridades y fundadores.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FUNDADORES ===== -->
+  <section class="fundadores" id="fundadores">
+    <div class="container">
+      <div class="sec-title-wrap">
+        <span class="sec-tag">Quiénes la integran</span>
+        <h2 style="font-size:32px;">Nuestros 21 fundadores</h2>
+        <div class="sec-line centered"></div>
+      </div>
+      <div class="fundadores-grid">
+        <div class="founder-chip"><p class="founder-name">Abascal, Sergio Alberto</p></div>
+        <div class="founder-chip"><p class="founder-name">Bomben, Miguel Angel</p></div>
+        <div class="founder-chip"><p class="founder-name">Brusco, Marta Isabel</p></div>
+        <div class="founder-chip"><p class="founder-name">Cervellini, Jorge Eduardo</p></div>
+        <div class="founder-chip"><p class="founder-name">Diaz-Zorita, Martín</p></div>
+        <div class="founder-chip"><p class="founder-name">Fernandez, Gustavo Daniel</p></div>
+        <div class="founder-chip"><p class="founder-name">Frigerio, Felix Rogelio</p></div>
+        <div class="founder-chip"><p class="founder-name">Goñi, Luis Tomas</p></div>
+        <div class="founder-chip"><p class="founder-name">Goyeneche, Pedro Felix</p></div>
+        <div class="founder-chip"><p class="founder-name">Hernandez, Alberto Julio</p></div>
+        <div class="founder-chip"><p class="founder-name">Martinez, Oscar Fernando</p></div>
+        <div class="founder-chip"><p class="founder-name">Mirasson, Hugo Raul</p></div>
+        <div class="founder-chip"><p class="founder-name">Morici, Ernesto Francisco A.</p></div>
+        <div class="founder-chip"><p class="founder-name">Reinaudi, Nilda Blanca</p></div>
+        <div class="founder-chip"><p class="founder-name">Repetto, Alicia Mabel</p></div>
+        <div class="founder-chip"><p class="founder-name">Serradell, Luis Esteban</p></div>
+        <div class="founder-chip"><p class="founder-name">Serradell, Rodolfo Oscar</p></div>
+        <div class="founder-chip"><p class="founder-name">Torroba, Hector Oscar</p></div>
+        <div class="founder-chip"><p class="founder-name">Troiani, Hector Oscar</p></div>
+        <div class="founder-chip"><p class="founder-name">Viglizzo, Ernesto Francisco</p></div>
+        <div class="founder-chip"><p class="founder-name">Zingaretti, Osvaldo</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACTO ===== -->
+  <section class="contacto" id="contacto">
+    <div class="container">
+      <div class="contact-info">
+        <span class="sec-tag">Contacto</span>
+        <div class="sec-line" style="margin-bottom:16px;"></div>
+        <h2>¿Querés ser parte o colaborar?</h2>
+        <p>Escribinos para conocer más sobre la fundación, cómo podés colaborar, o si querés sumarte como aliado institucional.</p>
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          </div>
+          <div>
+            <span class="contact-label">Ubicación</span>
+            <p class="contact-val">Santa Rosa, La Pampa, Argentina</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>
+          </div>
+          <div>
+            <span class="contact-label">Vinculada a</span>
+            <p class="contact-val">Facultad de Agronomía · UNLPam</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </div>
+          <div>
+            <span class="contact-label">Instagram</span>
+            <p class="contact-val">@fundacionamigosagronomia</p>
+          </div>
+        </div>
+      </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div>
+        <div class="footer-logo">
+          <div class="footer-logo-icon">
+
+  <!-- =====================================
+       LOGO FOOTER
+       CAMBIAR RUTA AQUI
+  ====================================== -->
+
+  <img src="IMG/logotipo.jpg" alt="Logo Fundación">
+
+</div>
+          <div class="footer-logo-text">Fundación Amigos de las<br>Ciencias Agrarias</div>
+        </div>
+        <p class="footer-desc">Apoyando el crecimiento de la Facultad de Agronomía de la UNLPam desde 2025. Santa Rosa, La Pampa, Argentina.</p>
+      </div>
+      <div>
+        <span class="footer-col-title">Navegación</span>
+        <a class="footer-link" href="#inicio">Inicio</a>
+        <a class="footer-link" href="#nosotros">Sobre nosotros</a>
+        <a class="footer-link" href="#objetivos">Objetivos</a>
+        <a class="footer-link" href="#eventos">Eventos</a>
+        <a class="footer-link" href="#contacto">Contacto</a>
+      </div>
+      <div>
+        <span class="footer-col-title">Institucional</span>
+        <a class="footer-link" href="#">Estatuto</a>
+        <a class="footer-link" href="#">Fundadores</a>
+        <a class="footer-link" href="#">UNLPam</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Todos los Derechos Reservados - Fundación Amigos de las Ciencias Agrarias</p>
+    </div>
+  </footer>
+
+</body>
+</html>
